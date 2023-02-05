@@ -5,7 +5,7 @@ export const PERPETUAL_STORAGE_BOUNTIES_BY_NETWORK: {
 } = {
   [CHAINS.FilecoinMainnet]: 'undeployed',
   [CHAINS.Wallaby]: 'undeployed',
-  [CHAINS.Hyperspace]: '0xA2A25fBBd987B2d1e7Ec4Ffe37ACedBDE6b49Da9',
+  [CHAINS.Hyperspace]: '0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef',
 };
 
 export const getPerpetualStorageBountiesAddress = (chainId: CHAINS): string => {

@@ -75,6 +75,7 @@ type SliderProps = {
   maxLabel?: React.ReactNode
   step?: number
   getLabel?: (value: number) => React.ReactNode
+  rightDecorator?: React.ReactNode
 }
 
 export type SliderInputProps = ComponentProps<'input', SliderProps>

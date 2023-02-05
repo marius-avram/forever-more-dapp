@@ -1,8 +1,10 @@
 import React from 'react'
+import { InputRightDecoratorStyle } from './InputStyles';
 import {
   Label,
   LabelContainer,
   RangeInputSlider,
+  RightDecoratorContainer,
   Slider,
   SliderWrapper,
   Track,
@@ -17,13 +19,19 @@ function SliderInput({
   step = 1,
   minLabel,
   maxLabel,
+  rightDecorator,
   getLabel = (val) => String(val),
 }: SliderInputProps): React.ReactElement {
   const fillPercentage = ((value - min) / (max - min)) * 100
+  const hasRightDecorator = !!rightDecorator;
+
   return (
     <SliderWrapper>
       <Slider>
-        {getLabel(value)}
+          <span>{getLabel(value)}</span>
+          {hasRightDecorator && 
+            <RightDecoratorContainer>{rightDecorator}</RightDecoratorContainer>
+          }
         <Track fillPercentage={fillPercentage} />
       </Slider>
       <RangeInputSlider

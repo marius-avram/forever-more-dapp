@@ -23,6 +23,7 @@ function Input(props: InputProps, ref?: ForwardedRef<HTMLInputElement>) {
     rightDecorator,
     className,
     style,
+    type = 'text',
     variant = 'default',
     color = 'default',
     wrapperRef,
@@ -69,7 +70,7 @@ function Input(props: InputProps, ref?: ForwardedRef<HTMLInputElement>) {
             $color={color}
             placeholder={placeholder}
             aria-invalid={hasError}
-            type="text"
+            type={type}
             ref={ref}
             readOnly={readOnly}
             {...rest}

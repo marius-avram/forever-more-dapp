@@ -6,7 +6,7 @@ export const RangeInputSlider = styled.input.attrs({ type: 'range' })`
   -webkit-appearance: none;
   position: absolute;
   margin: 0;
-  top: 56px;
+  top: 70px;
   left: 0;
   right: 0;
 
@@ -84,8 +84,8 @@ export const Track = styled.div<{ fillPercentage: number }>`
 
 export const Slider = styled.div`
   position: relative;
-  height: 56px;
-  padding: 16px 20px;
+  height: 70px;
+  padding: 20px 26px;
   box-sizing: border-box;
 
   background: var(--collective-color-accentControlBg);
@@ -93,8 +93,9 @@ export const Slider = styled.div`
   border-left: 1px solid var(--collective-color-border);
   border-top: 1px solid var(--collective-color-border);
 
-  border-radius: 10px;
   overflow: hidden;
+  font-size: 28px;
+  text-align: right;
 `
 
 export const SliderWrapper = styled.div`
@@ -114,4 +115,11 @@ export const Label = styled.span`
   line-height: 20px;
   color: var(--collective-color-text);
   opacity: 0.5;
+`
+export const RightDecoratorContainer = styled.span`
+  font-size: 14px;
+  padding: 0px 0px 0px 20px;
+  margin: auto;
+  text-align: center;
+  line-height: 30px;
 `
