@@ -40,11 +40,11 @@ The smart contract that is invoked by this app can be found on github at:
 https://github.com/marius-avram/forever-more-fevm-smart-contract
 
 The deployed address of the smart-contract is:
-`0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef` on the (Hyperspace Filecoin testnet)[https://hyperspace.filfox.info/en/address/0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef].
+`0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef` on the [Hyperspace Filecoin testnet](https://hyperspace.filfox.info/en/address/0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef).
 
 ## Running and development:
 
-This projects is forked from (Collectif frontend template)[https://github.com/collective-dao/collectif-fevm-frontend-template].
+This projects is forked from [Collectif frontend template](https://github.com/collective-dao/collectif-fevm-frontend-template).
 
 ### Pre-requisites
 
