@@ -6,7 +6,7 @@ import { base16 } from 'multiformats/bases/base16';
 import { useContractSWR } from 'sdk/hooks/useContractSWR';
 import { usePerpetualStorageBountiesRPC, usePerpetualStorageBountiesWeb3, useModal } from '../../../hooks';
 import StackedBlock from 'components/stackedBlock';
-import { ButtonWrapper, DecoratorLabelStyle, HalfColumn, InputWrapper, WalledBalanceLoaderStyle, WalletBalanceStyles, WalletSectionWrapper, WalletWrapperStyles } from './BountyCreateStyles';
+import { ButtonWrapper, CreateBountyTitle, DecoratorLabelStyle, HalfColumn, InputWrapper, WalledBalanceLoaderStyle, WalletBalanceStyles, WalletSectionWrapper, WalletWrapperStyles } from './BountyCreateStyles';
 import { Button, Clfil, Fil, Input, Wallet } from 'components/ui';
 import { MODAL } from 'providers';
 import SliderInput from 'components/ui/input/SliderInput';
@@ -16,9 +16,12 @@ import { BigNumber } from 'ethers';
 import BountyRequiredFunds from './BountyRequiredFunds';
 import FundsLocked from './FundsLocked';
 import { getMaxPriorityFee } from 'hooks/maxPriorityFee';
+import IconBxInfoCircle from 'components/infoCircleBadge/IconBxInfoCircle';
+import ForeverMoreInfo from '../info/ForeverMoreInfo';
 
 
 export default function BountyCreate() {
+  const [shouldDisplayInfo, setShouldDisplayInfo] = useState<boolean>(false);
   const [cid, setCid] = useState<string>();
   const [size, setSize] = useState<number>(262144);
   const [replicas, setReplicas] = useState<number>(3);
@@ -65,7 +68,12 @@ export default function BountyCreate() {
   return (
     <StackedBlock>
       <form action="" method="post" onSubmit={handleSubmit}>
+        <CreateBountyTitle>
+          Create new bounty&nbsp;
+          <IconBxInfoCircle onClick={() => setShouldDisplayInfo(!shouldDisplayInfo)}/>
+        </CreateBountyTitle>
         {active && (account != null) && <FundsLocked />}
+        {shouldDisplayInfo && <ForeverMoreInfo />}
         <InputWrapper key="cid-wrapper">
           <Input
             id="cid"

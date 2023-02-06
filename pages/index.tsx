@@ -23,38 +23,6 @@ export default function Home() {
   const { account } = useSDK();
   const { data: balance, initialLoading } = useFilecoinBalance();
 
-  /*
-  const contractRPC = useExampleContractRPC();
-  const contractWeb3 = useExampleContractWeb3();
-
-  const {data: clFilBalance, initialClFilLoading} = useContractSWR({
-    contract: contractRPC,
-    method: 'getBalance',
-    params: [account]
-  });
-  */
-
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement>
-  ) : void => {
-    setValue(event.currentTarget.value as string);
-  }
-
-  const handleSubmit: FormEventHandler<HTMLFormElement> | undefined = (
-    event: FormEvent,
-  ) => {
-    event.preventDefault();
-    // contractWeb3.deposit({value: stringToEther(value)})
-  };
-
-  const handleMaxClick = (
-    event: MouseEvent,
-  ) : void => {
-    balance && setValue(formatBalance(balance));
-  }; 
-
-  const { openModal } = useModal(MODAL.connect);
-
   return (
     <Layout>
       <Head>

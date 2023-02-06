@@ -6,7 +6,7 @@ export const WalletSectionWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 30px;
+  padding: 0px 30px 30px 30px;
 `
 
 export const WalletBalanceStyles = styled.span`
@@ -44,4 +44,11 @@ export const HalfColumn = styled.div`
   width: 48%;
   display: inline-block;
   padding: 1%;
+`;
+
+export const CreateBountyTitle = styled.div`
+  position: absolute;
+  margin-left: 30px;
+  font-size: 2em;
+  font-weight: bold;
 `;
