@@ -1,17 +1,51 @@
-# CollectifDAO Frontend Template
+# ForeverMore dapp frontend
 
-[CollectifDAO](https://collectif.finance/) Frontend Template is a project template for developing Filecoin dapp frontend on Filecoin and connect it to FEVM smart contracts. It includes Next.js, SWR, ethers, CollectifDAO UI components and styled-components. This template aims to help developers quickly get started on their dapp with minimal setup.
+## Summary
 
-The template is based on [Lido Frontend template](https://github.com/lidofinance/lido-frontend-template) and has been adapted for Filecoin FEVM, supports both Wallaby and Hyperspace testnets
+This repository contains a dApp frontend that can be used as a starting point for a DAO operating on the Filecoin network.
+
+The objective of the smart contract, called by this web app, is to manage the deals between two actors:
+- simple users of the network, that want to store some files
+- service providers that offer up their space in exchange of currency
+
+At the same time the app aims to allow its users the option to store in a convenient way files, that are replicated over the network at any point in time. While for the storage providers it aims to provide a steady source of income from new storage bounties.
+
+In current verion the basic user can create a storage deal offer/bounty for a file based on its CID. For each bounty he can
+select:
+- the desired amount of replicas that he wants to achive on the filecoin network
+- the minimum storage period desired for each replica
+
+Once the storage period for a replica has passed/expired it will try to make a new replica in the network for the same storage period that was first defined at the creation of the bounty. That will happen only if there are storage providers on the network willing to still take up the offer, and if the user that initiated the storage bounty has enough funds deposited in the contract.
+
+This project has been developed as part of the [Spacewarp Virtual Hackaton 2023](https://ethglobal.com/events/spacewarp) and it was deployed on the Filecoint Hyperspace testnet.
+
+## Usage scenarios
+
+A typical interaction scenario with the contract will look like this (involving the two actors mentioned earlier):
+
+- User1 wants to create a bounty for storing a file:
+  - calls the contract to find out the amount of FIL he needs to pre-deposit to allow the creation of the bounty (based on the number of replicas, size and basic storage period)
+  - deposits the amount of FIL specified by the contract
+  - creates the file bounty, if the pre-deposit was not made the bounty will fail creation
+
+- The Service Provider:
+  - will get a list with the available bounties that don't have the replica expectation met.
+  - selects one of the bounties it wants to complete
+  - does the storage deal for the specified period of time in the bounty (outside the contract)
+  - specifies the deal id for the bounty selected and if CID from the deal matches the one from the bounty he will get paid with the price of one replica.
+
+## Running and developement:
+
+This projects is forked from (Collectif frontend template)[https://github.com/collective-dao/collectif-fevm-frontend-template].
 
 ### Pre-requisites
 
 - Node.js v12+
 - Yarn package manager
 
-## Development
+### Development
 
-Step 0. Read `DOCS.md` in the root of the project
+Step 0. Read `DOCS.md` in the root of the project for project structure (not mandatory).
 
 Step 1. Copy the contents of `.env` to `.env.local`
 
@@ -19,7 +53,28 @@ Step 1. Copy the contents of `.env` to `.env.local`
 cp .env .env.local
 ```
 
-Step 2. Fill out the `.env.local`.
+Step 2. Fill out the `.env.local` with:
+
+```
+API_PROVIDER_URL_3141=https://api.hyperspace.node.glif.io/rpc/v1
+
+DEFAULT_CHAIN=3141
+SUPPORTED_CHAINS=3141
+
+# comma-separated trusted hosts for Content Security Policy
+# e.g. http://localhost:PORT for local development
+CSP_TRUSTED_HOSTS=https://*.collectif.finance
+
+# put "true" enable report only mode for CSP
+CSP_REPORT_ONLY=true
+
+# api endpoint for reporting csp violations
+# for prod and dev use https and real domain
+CSP_REPORT_URI=http://localhost/api/csp-report
+
+# Matomo analytics
+MATOMO_HOST='https://matomo.testnet.fi/'
+```
 
 Step 3. Install dependencies
 
@@ -27,73 +82,35 @@ Step 3. Install dependencies
 yarn install
 ```
 
-Step 4. Start the development server
+Step 4. Generate the contract factory and infer its types by running:
+```yarn typechain
+```
+
+Step 5. Start the development server
 
 ```bash
 yarn dev
 ```
 
-Step 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Step 6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Add your contract
-
-Step 1. Add your contract ABI to `abi` dir
-Step 2. Run `yarn typechain` to generate typings for your contract
-Step 3. Create a getter for your token address based on `config/example.ts`
-Step 4. Create the set of hooks in `hooks/contracts.ts` using contractHooksFactory from `sdk/factories`.
-
-```ts
-// hooks/contracts.ts
-
-// ...
-import { contractHooksFactory } from 'sdk/factories';
-import { getExampleAddress } from 'config';
-import { ExampleAbi__factory } from 'generated';
-
-const example = contractHooksFactory(ExampleAbi__factory, (chainId) =>
-  getExampleAddress(chainId),
-);
-export const useExampleContractRPC = example.useContractRPC;
-export const useExampleContractWeb3 = example.useContractWeb3;
-// ...
-
-The factory creates two hooks that will return the JSON RPC and Web3 contract interfaces which will allow us to use read and write methods respectively.
-
-```
-Step 5. Start working with your contract. For read methods, use the `useContractSWR` hook that wraps your rpc interface in `useSwr` for caching and re-validation. Write methods are available directly on the `contractWeb3` property and are automatically typed thanks to generated types.
-
-```ts
-import { useContractSWR } from 'sdk/hooks/useContractSWR';
-
-const MyComponent: FC<{}> = () => {
-  const contractRPC = useExampleContractRPC();
-  const contractWeb3 = useExampleContractWeb3();
-
-  // read call
-  const totalSupply = useContractSWR({
-    contract: contractRPC,
-    method: 'totalSupply',
-  });
-
-  const handleSubmit = (to, value) => {
-    // write call
-    contractWeb3.transfer(to, value);
-  };
-};
-```
-
-### Environment variables
-
-This project uses publicRuntimeConfig in the [next.config.js](./next.config.js) and getServerSideProps on the pages (function may be empty, but it forces Next.js to switch to Server-Side Rendering mode). This is necessary to quickly start the docker container without rebuilding the application. More on that in `DOCS.md`.
-
-Read more about [runtime configuration](https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration) and [automatic static optimization](https://nextjs.org/docs/advanced-features/automatic-static-optimization)
-
-### Content-Security-Policy
-
-In order to improve security, this template includes a Content-Security-Policy boilerplate. Please make sure to customize the policies in [utils/withCsp.ts](utils/withCsp.ts) before shipping the application to production. Learn more about it in [DOCS](/DOCS.md#monitoring).
-
-## Production
+### Production
 
 ```bash
 yarn build && yarn start
 ```
+
+## Screenshots:
+Creating a bounty:
+![Create bounty](imgs/create_bounty.png)
+Get required funds for a bounty
+![Get required funds for bounty](imgs/create_bounty_required_funds.png)
+Fill deal
+![Fill deal](imgs/fill_deal.png)
+
+
+## Known problems:
+
+- There are still some bugs in the claimBounty function as the limited time available for the hackaton did not permit enough debugging.
+- The Hyperspace RPC endpoint used to compute 'eth_maxPriorityFeePerGas' is proxied through: https://cors-anywhere.herokuapp.com/, because of CORS errors.
+First go to https://cors-anywhere.herokuapp.com/demo to get access to the CORS proxy if the proxy is still available. Another solution would be to use in `hooks/maxPriorityFee.ts` an JSON RPC server that accepts cors request.
