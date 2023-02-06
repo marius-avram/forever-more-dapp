@@ -19,12 +19,12 @@ export default function ForeverMoreInfo() {
       </ul>
       </p>
       <p>
-        At the same time the app aims to allow its users the option to store in a convenient way files, that are replicated over the network at any point in time. While for the storage providers it aims to provide a steady source of income from new storage bounties.
+        At the same time the app aims to allow its users the option to store in a convenient way files, that are replicated over the network at any point in time. For the storage providers it aims to provide a steady source of income from new storage bounties.
 
       </p>
       
       <p>
-        In current verion the basic user can create a storage deal offer/bounty for a file based on its CID. For each bounty he can
+        In the current verion the basic user can create a storage deal offer/bounty for a file based on its CID. For each bounty he can
         select:
         <ul  style={{marginLeft: '40px'}}>
           <li>

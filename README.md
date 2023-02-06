@@ -34,7 +34,14 @@ A typical interaction scenario with the contract will look like this (involving 
   - does the storage deal for the specified period of time in the bounty (outside the contract)
   - specifies the deal id for the bounty selected and if CID from the deal matches the one from the bounty he will get paid with the price of one replica.
 
-## Running and developement:
+## Smart contract
+The smart contract that is invoked by this app can be found on github at:
+https://github.com/marius-avram/forever-more-fevm-smart-contract
+
+The deployed address of the smart-contract is:
+`0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef`
+
+## Running and development:
 
 This projects is forked from (Collectif frontend template)[https://github.com/collective-dao/collectif-fevm-frontend-template].
 
