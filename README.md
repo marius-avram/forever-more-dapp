@@ -35,11 +35,12 @@ A typical interaction scenario with the contract will look like this (involving 
   - specifies the deal id for the bounty selected and if CID from the deal matches the one from the bounty he will get paid with the price of one replica.
 
 ## Smart contract
+
 The smart contract that is invoked by this app can be found on github at:
 https://github.com/marius-avram/forever-more-fevm-smart-contract
 
 The deployed address of the smart-contract is:
-`0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef`
+`0x0aA7309C29a937dDf81E0E0aF8175d43519be9ef` on the Hyperspace Filecoint testnet.
 
 ## Running and development:
 
